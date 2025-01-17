@@ -76,6 +76,11 @@ const asyncHandler = (fn: Function) => (req: express.Request, res: express.Respo
     Promise.resolve(fn(req, res, next)).catch(next);
 };
 
+// Добавим перед обработчиком 404
+app.get('/', (req, res) => {
+    res.json({ message: 'API работает' });
+});
+
 // Перенесем этот обработчик в конец всех маршрутов
 app.use((req: express.Request, res: express.Response) => {
     console.log('Неизвестный маршрут:', {
