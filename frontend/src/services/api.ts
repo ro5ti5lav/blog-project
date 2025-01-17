@@ -23,21 +23,43 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
-// Добавим перехватчик ответов
+// Улучшенный перехватчик ответов
 api.interceptors.response.use(
     response => response,
     error => {
-        console.error('API Error:', error.response || error);
+        console.error('API Error Details:', {
+            status: error.response?.status,
+            statusText: error.response?.statusText,
+            data: error.response?.data,
+            url: error.config?.url,
+            method: error.config?.method,
+            headers: error.config?.headers,
+            requestData: error.config?.data
+        });
+
         if (error.response?.status === 500) {
             console.error('Server Error Details:', error.response.data);
+        } else if (!error.response) {
+            console.error('Network Error:', error.message);
         }
+
         return Promise.reject(error);
     }
 );
 
 export const authAPI = {
-    login: (data: LoginData) =>
-        api.post<AuthResponse>('/auth/login', data),
+    login: async (data: LoginData) => {
+        try {
+            const response = await api.post<AuthResponse>('/auth/login', data);
+            return response;
+        } catch (error: any) {
+            console.error('Login Error:', {
+                data: data,
+                error: error.response?.data || error.message
+            });
+            throw error;
+        }
+    },
 
     register: (data: RegisterData) =>
         api.post<AuthResponse>('/auth/register', data)
