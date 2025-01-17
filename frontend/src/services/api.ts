@@ -9,7 +9,8 @@ console.log('API URL:', baseURL);
 const api = axios.create({
     baseURL,
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
     },
     withCredentials: true
 });

@@ -22,6 +22,16 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
 }));
+
+// Добавим обработку OPTIONS запросов
+app.options('*', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://ro5ti5lav.github.io');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.status(200).end();
+});
+
 app.use(express.json());
 
 // Измените путь к uploads, используя абсолютный путь
