@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { LoginData, RegisterData, AuthResponse, Post } from '../types';
 
-const baseURL = `${process.env.REACT_APP_API_URL}/api`;
+const baseURL = process.env.NODE_ENV === 'development'
+    ? 'http://localhost:5000/api'
+    : 'https://blog-project-gamma-two.vercel.app/api';
 console.log('API URL:', baseURL);
 
 const api = axios.create({
