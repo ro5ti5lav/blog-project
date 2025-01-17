@@ -23,6 +23,18 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
+// Добавим перехватчик ответов
+api.interceptors.response.use(
+    response => response,
+    error => {
+        console.error('API Error:', error.response || error);
+        if (error.response?.status === 500) {
+            console.error('Server Error Details:', error.response.data);
+        }
+        return Promise.reject(error);
+    }
+);
+
 export const authAPI = {
     login: (data: LoginData) =>
         api.post<AuthResponse>('/auth/login', data),
