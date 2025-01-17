@@ -14,12 +14,9 @@
         {
             "src": "/api/(.*)",
             "methods": [
-                "GET",
-                "POST",
-                "PUT",
-                "DELETE",
                 "OPTIONS"
             ],
+            "status": 200,
             "headers": {
                 "Access-Control-Allow-Origin": "https://ro5ti5lav.github.io",
                 "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, Accept",
@@ -27,6 +24,22 @@
                 "Access-Control-Allow-Credentials": "true",
                 "Access-Control-Max-Age": "86400"
             }
+        },
+        {
+            "src": "/api/(.*)",
+            "methods": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE"
+            ],
+            "headers": {
+                "Access-Control-Allow-Origin": "https://ro5ti5lav.github.io",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, Accept",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Credentials": "true"
+            },
+            "dest": "/backend/src/index.ts"
         },
         {
             "src": "/(.*)",
