@@ -1,10 +1,14 @@
 import axios from 'axios';
 import { LoginData, RegisterData, AuthResponse, Post } from '../types';
 
-const API_URL = 'http://localhost:5000/api';
+const baseURL = `${process.env.REACT_APP_API_URL}/api`;
+console.log('API URL:', baseURL);
 
 const api = axios.create({
-    baseURL: API_URL
+    baseURL,
+    headers: {
+        'Content-Type': 'application/json'
+    }
 });
 
 api.interceptors.request.use((config) => {
